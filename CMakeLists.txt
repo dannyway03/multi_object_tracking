@@ -16,9 +16,9 @@ find_package(glog REQUIRED)
 find_package(Eigen3 REQUIRED)
 
 # ONNX Runtime setup
-set(ONNXRUNTIME_DIR "$ENV{HOME}/onnxruntime-linux-x64-gpu-1.19.2")
-set(ONNXRUNTIME_INCLUDE_DIRS "${ONNXRUNTIME_DIR}/include")
-set(ONNXRUNTIME_LIB_DIR "${ONNXRUNTIME_DIR}/lib")
+set(ONNXRUNTIME_DIR "/home/briox/Software/cpp/libs/onnxruntime/install/Linux/ort-openvino/Release")
+set(ONNXRUNTIME_INCLUDE_DIRS "/home/briox/Software/cpp/libs/onnxruntime/install/Linux/ort-openvino/Release/include/onnxruntime")
+set(ONNXRUNTIME_LIB_DIR "/home/briox/Software/cpp/libs/onnxruntime/install/Linux/ort-openvino/Release/lib")
 
 if(NOT EXISTS "${ONNXRUNTIME_INCLUDE_DIRS}/onnxruntime_cxx_api.h")
     message(FATAL_ERROR "ONNX Runtime headers not found in ${ONNXRUNTIME_INCLUDE_DIRS}")
@@ -31,15 +31,15 @@ find_library(ONNXRUNTIME_LIBRARY
     REQUIRED
 )
 
-find_library(ONNXRUNTIME_GPU_LIBRARY
-    NAMES onnxruntime_providers_cuda
-    PATHS ${ONNXRUNTIME_LIB_DIR}
-    NO_DEFAULT_PATH
-    REQUIRED
-)
+#find_library(ONNXRUNTIME_GPU_LIBRARY
+#    NAMES onnxruntime_providers_cuda
+#    PATHS ${ONNXRUNTIME_LIB_DIR}
+#    NO_DEFAULT_PATH
+#    REQUIRED
+#)
 
 message(STATUS "Found ONNX Runtime: ${ONNXRUNTIME_LIBRARY}")
-message(STATUS "Found ONNX Runtime GPU: ${ONNXRUNTIME_GPU_LIBRARY}")
+#message(STATUS "Found ONNX Runtime GPU: ${ONNXRUNTIME_GPU_LIBRARY}")
 
 include(FetchContent)
 
@@ -115,7 +115,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     detectors
     InferenceEngines
     ${ONNXRUNTIME_LIBRARY}
-    ${ONNXRUNTIME_GPU_LIBRARY}
+    #${ONNXRUNTIME_GPU_LIBRARY}
     detectors
     bytetrack
     Eigen3::Eigen
